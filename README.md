@@ -24,6 +24,12 @@ Click this button:
 1. `heroku config:set SLACK_POKER_BOT_TOKEN=[Your API token]`
 1. `git push heroku master`
 
+## Running on Docker
+```sh
+$ docker pull asimpson/slack-connect-4-bot
+$ docker run -e "SLACK_CONNECT_4_BOT_TOKEN=YOUR_TOKEN" --name connect4 -d asimpson/slack-connect-4-bot
+```
+
 #### To Run Locally
 1. Create a `token.txt` file and paste your API token there
 1. `npm install`
@@ -35,7 +41,7 @@ Click this button:
 Note that any player can end a game at any time with this command, so Be Honorable™.
 * To configure some bot options, `@<your-bot-name>: config <name-of-option>=<value>`. The supported options are:
 ```
-timeout: Sets the duration (in seconds) before a player times out. 
+timeout: Sets the duration (in seconds) before a player times out.
 Set to 0 to specify no timeout.
 ```
 So, to start a game without any player timeout, say:
