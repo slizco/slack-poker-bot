@@ -27,7 +27,7 @@ Click this button:
 ## Running on Docker
 ```sh
 $ docker pull asimpson/slack-connect-4-bot
-$ docker run -e "SLACK_CONNECT_4_BOT_TOKEN=YOUR_TOKEN" --name connect4 -d asimpson/slack-connect-4-bot
+$ docker run -e "SLACK_POKER_BOT_TOKEN=YOUR_TOKEN" --name pokerbot -d asimpson/slack-poker-bot
 ```
 
 #### To Run Locally
