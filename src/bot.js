@@ -18,7 +18,7 @@ class Bot {
     this.slack = new Slack(token, true, true);
     
     this.gameConfig = {};
-    this.gameConfigParams = ['timeout'];
+    this.gameConfigParams = ['timeout', 'timeBetweenHands'];
   }
 
   // Public: Brings this bot online and starts handling messages sent to it.
@@ -84,7 +84,7 @@ class Bot {
       .where(e => e.text && e.text.toLowerCase().includes('config'))
       .subscribe(e => {
         let channel = this.slack.getChannelGroupOrDMByID(e.channel);
-        
+
         e.text.replace(/(\w*)=(\d*)/g, (match, key, value) => {
           if (this.gameConfigParams.indexOf(key) > -1 && value) {
             this.gameConfig[key] = value;
@@ -136,7 +136,7 @@ class Bot {
 
     channel.send(`We've got ${players.length} players, let's start the game.`);
     this.isGameRunning = true;
-    
+
     let game = new TexasHoldem(this.slack, messages, channel, players);
     _.extend(game, this.gameConfig);
 
@@ -150,7 +150,7 @@ class Bot {
         channel.send(`${player.name} has decided to quit the game. The game will end after this hand.`);
         game.quit();
       });
-    
+
     return SlackApiRx.openDms(this.slack, players)
       .flatMap(playerDms => rx.Observable.timer(2000)
         .flatMap(() => game.start(playerDms)))
