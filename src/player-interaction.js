@@ -199,12 +199,12 @@ class PlayerInteraction {
     case 'b':
     case 'bet':
       name = 'bet';
-      amount = input[1] ? parseInt(input[1]) : NaN;
+      amount = input[1] ? parseFloat(input[1]) : NaN;
       break;
     case 'r':
     case 'raise':
       name = 'raise';
-      amount = input[1] ? parseInt(input[1]) : NaN;
+      amount = input[1] ? parseFloat(input[1]) : NaN;
       break;
     default:
       return null;

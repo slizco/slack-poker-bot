@@ -26,7 +26,7 @@ class PlayerStatus {
       let player = players[idx];
       let turnIndicator = player === actingPlayer ? '→ ' : '  ';
       row.push(`${turnIndicator}${player.name}`);
-      row.push(`$${player.chips}`);
+      row.push(`$${player.chips.toFixed(2)}`);
 
       let handIndicator = player.isInHand ? '🂠' : ' ';
       row.push(handIndicator);
@@ -58,9 +58,9 @@ class PlayerStatus {
       if (amount === 0) continue;
       
       if (idx === 0) {
-        potBreakdown += `Main Pot: $${amount}\n`;
+        potBreakdown += `Main Pot: $${amount.toFixed(2)}\n`;
       } else {
-        potBreakdown += `Side Pot: $${amount}\n`;
+        potBreakdown += `Side Pot: $${amount.toFixed(2)}\n`;
       }
     }
     
