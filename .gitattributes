@@ -1,2 +1,3 @@
-terraform/terraform.tfvars filter=git-crypt diff=git-crypt
+terraform/friendz.tfvars filter=git-crypt diff=git-crypt
+terraform/misfits.tfvars filter=git-crypt diff=git-crypt
 terraform/container_defs.json filter=git-crypt diff=git-crypt

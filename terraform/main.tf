@@ -5,15 +5,16 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket  = "slizco-tfstate"
-    key     = "dev/slack-poker-bot/terraform.tfstate"
-    region  = "us-east-1"
-    profile = "liz"
+    bucket               = "slizco-tfstate"
+    key                  = "terraform.tfstate"
+    workspace_key_prefix = "dev/slack-poker-bot"
+    region               = "us-east-1"
+    profile              = "liz"
   }
 }
 
 resource "aws_ecs_service" "slack-poker-bot" {
-  name            = "slack-poker-bot"
+  name            = "${var.service_name}"
   cluster         = "dev"
   task_definition = "${aws_ecs_task_definition.slack-poker-bot.arn}"
   desired_count   = 1
@@ -27,8 +28,13 @@ resource "aws_ecs_service" "slack-poker-bot" {
 }
 
 resource "aws_ecs_task_definition" "slack-poker-bot" {
-  family                   = "slack-poker-bot"
-  container_definitions    = "${file("container_defs.json")}"
+  family = "${var.service_name}"
+  container_definitions = "${templatefile("container_defs.json",
+    {
+      slack_token  = "${var.slack_token}"
+      service_name = "${var.service_name}"
+    }
+  )}"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = 2048
